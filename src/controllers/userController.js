@@ -26,3 +26,24 @@ export async function addUser(req, res){
     }
 }
 
+export async function signIn(req, res){
+    const {email, password} = req.body;
+
+    try {
+        const checkUser = await db.query(`
+        SELECT * 
+        FROM users 
+        WHERE email=$1`, [email]);
+        if(checkUser.rows.length !== 0 && bcrypt.compareSync(password, checkUser.rows[0].password)){
+            //TODO: gerar token com jsonwebtoken e enviar como resposta do login
+            return res.sendStatus(200);;
+        }else {
+            res.status(404).send("usuario não encontrado");
+        }
+        
+    } catch (error) {
+        console.log("erro", error);
+        res.status(500).send("erro ao fazer login");
+    }
+}
+
