@@ -28,11 +28,11 @@ export async function getUrlById(req, res){
             FROM urls 
             WHERE id=$1;`, [id]);
         console.log("urls",urlsList);
+
         const url = urlsList.rows[0];
         if(urlsList.rowCount === 0) return res.status(404).send("url não encontrada!");
 
         res.status(200).send(url);
-        
     } catch (error) {
         console.log("erro", error);
         res.sendStatus(500);
