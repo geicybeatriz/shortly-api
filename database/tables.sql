@@ -18,7 +18,7 @@
 -- CREATE TABLE urls (
 --     id SERIAL PRIMARY KEY,
 --     url TEXT NOT NULL,
---     "shortURL" TEXT NOT NULL UNIQUE,
+--     "shortUrl" TEXT NOT NULL UNIQUE,
 --     views INTEGER NOT NULL DEFAULT '0',
 --     "userId" INTEGER NOT NULL REFERENCES users(id),
 --     "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT 'NOW()'
