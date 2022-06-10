@@ -66,6 +66,28 @@ export async function getShortUrl(req, res){
     }
 }
 
+export async function deleteUrlById(req, res){
+    const {user} = res.locals;
+    const {id} = req.params;
+
+    try {
+        const result = await db.query(`
+            SELECT * 
+            FROM urls 
+            WHERE id=$1;`, [id]);
+        
+        if(result.rowCount === 0) return res.status(404).send("url não encontrada!");
+        if(result.rows[0].userId !== user.id) return res.sendStatus(401);
+
+        await db.query(`DELETE FROM urls WHERE id=$1;`, [id]);
+        res.status(204).send("url apagada");
+
+    } catch (error) {
+        console.log("erro", error);
+        res.sendStatus(500);
+    }
+}
+
 
 
 
