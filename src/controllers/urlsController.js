@@ -39,6 +39,33 @@ export async function getUrlById(req, res){
     }
 }
 
+export async function getShortUrl(req, res){
+    const {shortUrl} = req.params;
+
+    try {
+        const result = await db.query(`
+            SELECT *
+            FROM urls
+            WHERE "shortUrl"=$1;`, [shortUrl]);
+        if(result.rowCount === 0) return res.status(404).send("url não encontrada!");
+
+        const urlList = result.rows[0];
+        let visitCount = urlList.views;
+        visitCount++;
+
+        await db.query(`
+            UPDATE urls
+            SET views=$1
+            WHERE "shortUrl"=$2;`, [visitCount, shortUrl]);
+        
+        res.redirect(urlList.url);
+        
+    } catch (error) {
+        console.log("erro", error);
+        res.sendStatus(500);
+    }
+}
+
 
 
 
