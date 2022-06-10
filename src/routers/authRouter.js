@@ -1,9 +1,11 @@
-import { signUpValidate, signInValidate } from "../middlewares/userValidation.js";
-import { addUser, signIn } from "../controllers/userController.js";
+import { signUp, signIn } from "../controllers/userController.js";
+import validateSchema from "../middlewares/schemaValidation.js";
+import signUpSchema from "../schemas/signUpSchema.js";
+import signInSchema from "../schemas/signInSchema.js";
 import { Router } from "express";
 
 const authController = Router();
-authController.post("/signup", signUpValidate, addUser);
-authController.post("/signin", signInValidate, signIn);
+authController.post("/signup", validateSchema(signUpSchema), signUp);
+authController.post("/signin", validateSchema(signInSchema), signIn);
 
 export default authController;

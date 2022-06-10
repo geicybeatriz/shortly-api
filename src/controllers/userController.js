@@ -3,7 +3,7 @@ import * as bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 
 
-export async function addUser(req, res){
+export async function signUp(req, res){
     const {name, email, password, confirmPassword} = req.body;
     const passwordHash = bcrypt.hashSync(password, 10);
 
