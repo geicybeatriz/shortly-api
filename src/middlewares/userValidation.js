@@ -1,19 +1,8 @@
-import Joi from "joi";
-
-const signUpSchema = Joi.object({
-    name: Joi.string().required(),
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
-    confirm_password: Joi.ref('password')
-});
-
-const signInSchema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().required()
-})
+import signInSchema from "../schemas/signInSchema.js";
+import signUpSchema from "../schemas/signUpSchema.js";
 
 export async function signUpValidate(req, res, next){
-    if(req.body.password !== req.body.confirm_password){
+    if(req.body.password !== req.body.confirmPassword){
         return res.status(422).send("as senhas devem ser iguais");
     }
 
