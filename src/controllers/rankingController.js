@@ -16,4 +16,3 @@ export async function getRanking(req, res){
         res.sendStatus(500);
     }
 }
-
