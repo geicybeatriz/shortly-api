@@ -36,12 +36,14 @@ export async function signIn(req, res){
         SELECT * 
         FROM users 
         WHERE email=$1;`, [email]);
+
         if(checkUser.rows.length !== 0 && bcrypt.compareSync(password, checkUser.rows[0].password)){
             const token = uuidv4();
             await db.query(`
                 INSERT INTO sessions (token, "userId") 
                 VALUES ($1, $2);`, 
                 [token, checkUser.rows[0].id]);
+                
             return res.status(200).send(token);
         }else {
             res.status(404).send("usuário não encontrado");

@@ -11,7 +11,7 @@
 -- CREATE TABLE sessions (
 --     id SERIAL PRIMARY KEY,
 --     token TEXT NOT NULL UNIQUE,
---     "userId" INTEGER NOT NULL UNIQUE REFERENCES users(id),
+--     "userId" INTEGER NOT NULL REFERENCES users(id),
 --     "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT 'NOW()'
 -- );
 
@@ -20,6 +20,6 @@
 --     url TEXT NOT NULL,
 --     "shortURL" TEXT NOT NULL UNIQUE,
 --     views INTEGER NOT NULL DEFAULT '0',
---     "userId" INTEGER NOT NULL UNIQUE REFERENCES users(id),
+--     "userId" INTEGER NOT NULL REFERENCES users(id),
 --     "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT 'NOW()'
 -- );
